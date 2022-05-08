@@ -18,13 +18,16 @@ public class Application {
     public static void main(String[] args) throws Exception {
 
         //converte o JSON inicial para List
-        List<String> jsonList = inputJson();
+        List<String> jsonList = inputJsonAndConvertToList();
+
+        System.out.println("\n-------------------------------------");
 
         //converte List para String
         StringBuilder jsonString = new StringBuilder();
         jsonList.forEach(x -> {
             jsonString.append(x);
         });
+
 
         //transforma a String para a classe JsonInput
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -35,9 +38,11 @@ public class Application {
 
         //retorno dos dados para o usuário
         System.out.println(gson.toJson(jsonOutput));
+
+        System.out.println("-------------------------------------");
     }
 
-    public static List<String> inputJson() throws IOException {
+    public static List<String> inputJsonAndConvertToList() throws IOException {
         InputStream is = System.in;
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
@@ -71,13 +76,37 @@ public class Application {
         jsonOutput.setFulfillmentId(jsonInput.getId());
 
         //items
+        transferItems(jsonInput, jsonOutput);
+
+        //refund's
+        transferRefund(jsonInput, jsonOutput);
+
+        //demais campos
+        jsonOutput.setExtensionAttributes(new ExtensionAttributesOutput(
+                                            jsonInput.getExtensionAttributes().isAcceptGiftcard(),
+                                            jsonInput.getExtensionAttributes().getGiftcardCurrency(),
+                                            jsonInput.getExtensionAttributes().getGiftcardType()
+        ));
+
+        jsonOutput.setPlacedAt(jsonInput.getProcessedAt());
+        jsonOutput.setCreatedAt(Instant.now().toString()); //brazil
+        jsonOutput.setStatus("PENDING"); //MUDAR TREATMENT PARA PENDING -> DÚVIDA
+
+        return jsonOutput;
+    }
+
+    public static JsonOutput transferItems(JsonInput jsonInput, JsonOutput jsonOutput){
         for (ItemsInput item : jsonInput.getItems())
             jsonOutput.getItems().add(new ItemsOutput(item.getSku(), item.getQuantity()));
 
-        //refund's
-        Double freightRefund = 0.0;
-        Double itemsRefund = 0.0;
-        Double refundValue; //converter para int
+        return jsonOutput;
+    }
+
+    public static JsonOutput transferRefund(JsonInput jsonInput, JsonOutput jsonOutput){
+        Double freightRefund = 0.0,
+                itemsRefund = 0.0,
+                refundValue;
+
         String refundType;
         boolean refundProcessed = false;
 
@@ -96,17 +125,6 @@ public class Application {
         if(refundType.equals("GIFTCARD") && freightRefund < 10) refundProcessed = true;
 
         jsonOutput.setRefundProcessed(refundProcessed);
-
-        //demais campos
-        jsonOutput.setExtensionAttributes(new ExtensionAttributesOutput(
-                                            jsonInput.getExtensionAttributes().isAcceptGiftcard(),
-                                            jsonInput.getExtensionAttributes().getGiftcardCurrency(),
-                                            jsonInput.getExtensionAttributes().getGiftcardType()
-        ));
-
-        jsonOutput.setPlacedAt(jsonInput.getProcessedAt());
-        jsonOutput.setCreatedAt(Instant.now().toString()); //brazil
-        jsonOutput.setStatus("PENDING"); //MUDAR TREATMENT PARA PENDING -> DÚVIDA
 
         return jsonOutput;
     }

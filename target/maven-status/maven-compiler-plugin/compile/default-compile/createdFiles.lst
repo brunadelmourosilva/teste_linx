@@ -1,0 +1,9 @@
+model\input\ExtensionAttributesInput.class
+model\input\ItemsInput.class
+model\input\JsonInput.class
+model\output\ExtensionAttributesOutput.class
+model\output\JsonOutput.class
+model\output\RefundOutput.class
+model\output\ItemsOutput.class
+Application.class
+model\input\TotalsInput.class
