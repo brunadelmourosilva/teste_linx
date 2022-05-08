@@ -1,0 +1,9 @@
+PESQUISAR
+
+mvn clean install
+
+mvn clean package
+
+mvn compile
+
+mvn exec:java -Dexec.mainClass=Application
