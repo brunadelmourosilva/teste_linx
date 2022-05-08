@@ -14,7 +14,7 @@ public class JsonInput {
     private String channelId;
     private String clientId;
     private String status;
-    private ExtensionAttributes extensionAttributes;
+    private ExtensionAttributesInput extensionAttributes;
     private String createdAt; //não copiar o campo - colocar output => Instant.now().toString()
     private String processedAt;
     private List<ItemsInput> items = new ArrayList<>();
@@ -22,7 +22,7 @@ public class JsonInput {
     public JsonInput() {
     }
 
-    public JsonInput(String id, String orderId, String channelId, String clientId, String status, ExtensionAttributes extensionAttributes, String processedAt) {
+    public JsonInput(String id, String orderId, String channelId, String clientId, String status, ExtensionAttributesInput extensionAttributes, String processedAt) {
         this.id = id;
         this.orderId = orderId;
         this.channelId = channelId;
@@ -72,11 +72,11 @@ public class JsonInput {
         this.status = status;
     }
 
-    public ExtensionAttributes getExtensionAttributes() {
+    public ExtensionAttributesInput getExtensionAttributes() {
         return extensionAttributes;
     }
 
-    public void setExtensionAttributes(ExtensionAttributes extensionAttributes) {
+    public void setExtensionAttributes(ExtensionAttributesInput extensionAttributes) {
         this.extensionAttributes = extensionAttributes;
     }
 
@@ -98,20 +98,5 @@ public class JsonInput {
 
     public void setItems(List<ItemsInput> items) {
         this.items = items;
-    }
-
-    @Override
-    public String toString() {
-        return "JsonInput{" +
-                "id='" + id + '\'' +
-                "\n, orderId=" + orderId +
-                "\n, channelId='" + channelId + '\'' +
-                "\n, clientId='" + clientId + '\'' +
-                "\n, status='" + status + '\'' +
-                "\n, extensionAttributes=" + extensionAttributes +
-                "\n, createdAt='" + createdAt + '\'' +
-                "\n, processedAt='" + processedAt + '\'' +
-                "\n, items=" + items +
-                '}';
     }
 }

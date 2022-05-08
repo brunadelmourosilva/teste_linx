@@ -7,12 +7,12 @@ public class ItemsInput {
     private Integer quantity;
     private String stockType;
     private String itemType;
-    private Totals totals;
+    private TotalsInput totals;
 
     public ItemsInput() {
     }
 
-    public ItemsInput(String sku, String name, Integer quantity, String stockType, String itemType, Totals totals) {
+    public ItemsInput(String sku, String name, Integer quantity, String stockType, String itemType, TotalsInput totals) {
         this.sku = sku;
         this.name = name;
         this.quantity = quantity;
@@ -61,23 +61,11 @@ public class ItemsInput {
         this.itemType = itemType;
     }
 
-    public Totals getTotals() {
+    public TotalsInput getTotals() {
         return totals;
     }
 
-    public void setTotals(Totals totals) {
+    public void setTotals(TotalsInput totals) {
         this.totals = totals;
-    }
-
-    @Override
-    public String toString() {
-        return "Items{" +
-                "\nsku='" + sku + '\'' +
-                "\n, name='" + name + '\'' +
-                "\n, quantity=" + quantity +
-                "\n, stockType='" + stockType + '\'' +
-                "\n, itemType='" + itemType + '\'' +
-                "\n, totals=" + totals +
-                '}';
     }
 }

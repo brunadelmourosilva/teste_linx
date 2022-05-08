@@ -8,56 +8,58 @@ import model.output.JsonOutput;
 import model.output.RefundOutput;
 
 import java.io.*;
+import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Application {
 
-    private static Scanner SC = new Scanner(System.in);
-    //estudar classe e explicar README
-    //https://www.devmedia.com.br/classes-de-entrada-e-saida-de-dados-em-java/26029
-    //https://code-examples.net/pt/q/4b5cb
-
     public static void main(String[] args) throws Exception {
 
-        InputStream is = System.in;
-        System.out.print("Digite o JSON: ");
+        //converte o JSON inicial para List
+        List<String> jsonList = inputJson();
 
-        //input do JSON
+        //converte List para String
+        StringBuilder jsonString = new StringBuilder();
+        jsonList.forEach(x -> {
+            jsonString.append(x);
+        });
+
+        //transforma a String para a classe JsonInput
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonInput jsonInput = gson.fromJson(jsonString.toString(), JsonInput.class);
+
+        //transfere os dados de input, realiza as manipulações e retorna o output
+        JsonOutput jsonOutput = transferData(jsonInput);
+
+        //retorno dos dados para o usuário
+        System.out.println(gson.toJson(jsonOutput));
+    }
+
+    public static List<String> inputJson() throws IOException {
+        InputStream is = System.in;
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
 
-        String digitado = br.readLine();
+        System.out.println("Cole o JSON: ");
+
+        String line = br.readLine();
 
         List<String> jsonList = new ArrayList<>();
-        while (digitado != null) {
-            jsonList.add(digitado);
-            digitado = br.readLine();
 
-            if (digitado.contains("]")) {
+        while (line != null) {
+            jsonList.add(line);
+            line = br.readLine();
+
+            if (line.contains("]")) {
                 jsonList.add("]");
                 jsonList.add("}");
                 break;
             }
         }
 
-        //converter List para string
-        StringBuilder jsonString = new StringBuilder();
-        jsonList.forEach(line -> {
-            jsonString.append(line);
-
-        });
-
-        //transforma em json object para a classe JsonInput
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonInput jsonInput = gson.fromJson(jsonString.toString(), JsonInput.class);
-
-        //passar jsoninput para jsonoutput
-        JsonOutput jsonOutput = transferData(jsonInput);
-
-        System.out.println(gson.toJson(jsonOutput));
+        return jsonList;
     }
 
     public static JsonOutput transferData(JsonInput jsonInput){
@@ -91,7 +93,6 @@ public class Application {
 
         jsonOutput.setRefund(new RefundOutput(refundValue, freightRefund, itemsRefund, refundType));
 
-
         if(refundType.equals("GIFTCARD") && freightRefund < 10) refundProcessed = true;
 
         jsonOutput.setRefundProcessed(refundProcessed);
@@ -104,9 +105,8 @@ public class Application {
         ));
 
         jsonOutput.setPlacedAt(jsonInput.getProcessedAt());
-        jsonOutput.setCreatedAt(Instant.now().toString());
+        jsonOutput.setCreatedAt(Instant.now().toString()); //brazil
         jsonOutput.setStatus("PENDING"); //MUDAR TREATMENT PARA PENDING -> DÚVIDA
-
 
         return jsonOutput;
     }

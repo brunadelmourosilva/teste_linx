@@ -1,15 +1,15 @@
 package model.input;
 
-public class ExtensionAttributes {
+public class ExtensionAttributesInput {
 
     private boolean acceptGiftcard;
     private String giftcardCurrency;
     private String giftcardType;
 
-    public ExtensionAttributes() {
+    public ExtensionAttributesInput() {
     }
 
-    public ExtensionAttributes(boolean acceptGiftcard, String giftcardCurrency, String giftcardType) {
+    public ExtensionAttributesInput(boolean acceptGiftcard, String giftcardCurrency, String giftcardType) {
         this.acceptGiftcard = acceptGiftcard;
         this.giftcardCurrency = giftcardCurrency;
         this.giftcardType = giftcardType;
@@ -37,14 +37,5 @@ public class ExtensionAttributes {
 
     public void setGiftcardType(String giftcardType) {
         this.giftcardType = giftcardType;
-    }
-
-    @Override
-    public String toString() {
-        return "ExtensionAttributes{" +
-                "\nacceptGiftcard=" + acceptGiftcard +
-                "\n, giftcardCurrency='" + giftcardCurrency + '\'' +
-                "\n, giftcardType='" + giftcardType + '\'' +
-                '}';
     }
 }

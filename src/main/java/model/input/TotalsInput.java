@@ -1,16 +1,16 @@
 package model.input;
 
-public class Totals {
+public class TotalsInput {
 
     private Double price;
     private Double totalAmount;
     private Double priceDiscounted;
     private Double proportionalShippingAmount;
 
-    public Totals() {
+    public TotalsInput() {
     }
 
-    public Totals(Double price, Double totalAmount, Double priceDiscounted, Double proportionalShippingAmount) {
+    public TotalsInput(Double price, Double totalAmount, Double priceDiscounted, Double proportionalShippingAmount) {
         this.price = price;
         this.totalAmount = totalAmount;
         this.priceDiscounted = priceDiscounted;
@@ -47,15 +47,5 @@ public class Totals {
 
     public void setProportionalShippingAmount(Double proportionalShippingAmount) {
         this.proportionalShippingAmount = proportionalShippingAmount;
-    }
-
-    @Override
-    public String toString() {
-        return "Totals{" +
-                "price=" + price +
-                ", totalAmount=" + totalAmount +
-                ", priceDiscounted=" + priceDiscounted +
-                ", proportionalShippingAmount=" + proportionalShippingAmount +
-                '}';
     }
 }
