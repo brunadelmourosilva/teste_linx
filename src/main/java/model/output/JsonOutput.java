@@ -1,7 +1,9 @@
 package model.output;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JsonOutput {
 
@@ -9,7 +11,7 @@ public class JsonOutput {
     private String channelId;
     private String orderId;
     private String fulfillmentId;
-    private List<ItemsOutput> items = new ArrayList<>();
+    private Map<String, ItemsOutput> items = new HashMap<>();
     private RefundOutput refund;
     private boolean refundProcessed;
     private ExtensionAttributesOutput extensionAttributes;
@@ -65,11 +67,11 @@ public class JsonOutput {
         this.fulfillmentId = fulfillmentId;
     }
 
-    public List<ItemsOutput> getItems() {
+    public Map<String, ItemsOutput> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemsOutput> items) {
+    public void setItems(Map<String, ItemsOutput> items) {
         this.items = items;
     }
 

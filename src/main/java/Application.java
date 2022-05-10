@@ -7,7 +7,9 @@ import model.output.*;
 import java.io.*;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Application {
 
@@ -82,23 +84,18 @@ public class Application {
         ));
 
         jsonOutput.setPlacedAt(jsonInput.getProcessedAt());
-        jsonOutput.setCreatedAt(Instant.now().toString()); //brazil
-        jsonOutput.setStatus("PENDING"); //MUDAR TREATMENT PARA PENDING -> DÚVIDA
+        jsonOutput.setCreatedAt(Instant.now().toString());
+        jsonOutput.setStatus("PENDING");
 
         return jsonOutput;
     }
 
-    //TESTAR
     public static JsonOutput transferItems(JsonInput jsonInput, JsonOutput jsonOutput){
         for (ItemsInput item : jsonInput.getItems()) {
-            jsonOutput.getItems().add(new ItemsOutput(item.getSku(), item.getQuantity()));
+            jsonOutput.getItems().put(item.getSku(), new ItemsOutput(item.getSku(), item.getQuantity()));
         }
         return jsonOutput;
     }
-
-    //lista de itens
-            //cada item tem 3 sku's
-                    //cada sku tem 2 atributos
 
     public static JsonOutput transferRefund(JsonInput jsonInput, JsonOutput jsonOutput){
         Double freightRefund = 0.0,
