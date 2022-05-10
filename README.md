@@ -22,18 +22,20 @@ mvn clean install
 mvn clean package
 mvn compile
 ```
-* 5 - Em seguida, execute a aplicação, com o seguinte comando:
+* 5 - Em seguida, execute a aplicação, com o seguinte comando
 
 ```
 mvn exec:java -Dexec.mainClass=Application
 ```
 
-* 6 - Cole o JSON no terminal:
+* 6 - Cole o JSON no terminal
+
+**Importante**: para evitar que caracteres implícitos estejam no JSON, cole o JSON em um bloco de notas e, em seguida, copie novamente e cole no terminal
 
 ![img.png](img_0.png)
 
 
-* 7 - Resultado da saída:
+* 7 - Resultado da saída
 
 ![img.png](img_4.png)
 
