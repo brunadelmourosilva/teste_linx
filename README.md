@@ -30,12 +30,12 @@ mvn exec:java -Dexec.mainClass=Application
 
 * 6 - Cole o JSON no terminal:
 
-![img.png](img.png)
+![img.png](img_0.png)
 
 
-* 7 - Resultado da saída: RESOLVER SKU
+* 7 - Resultado da saída:
 
-![img_1.png](img_1.png)
+![img.png](img_4.png)
 
 ---
 
