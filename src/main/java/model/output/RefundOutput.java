@@ -5,7 +5,7 @@ public class RefundOutput {
     private Double refundValue;
     private Double freightRefund;
     private Double itemsRefund;
-    private String refundType; //enum
+    private String refundType;
 
     public RefundOutput() {
     }

@@ -7,13 +7,12 @@ import model.output.*;
 import java.io.*;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Application {
 
     public static void main(String[] args) throws Exception {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         //converte o JSON inicial para List
         List<String> jsonList = inputJsonAndConvertToList();
@@ -27,7 +26,6 @@ public class Application {
         });
 
         //transforma a String para a classe JsonInput
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonInput jsonInput = gson.fromJson(jsonString.toString(), JsonInput.class);
 
         //transfere os dados de input, realiza as manipulações e retorna o output
@@ -73,10 +71,9 @@ public class Application {
         //items
         transferItems(jsonInput, jsonOutput);
 
-        //refund's
+        //refund
         transferRefund(jsonInput, jsonOutput);
 
-        //demais campos
         jsonOutput.setExtensionAttributes(new ExtensionAttributesOutput(
                                             jsonInput.getExtensionAttributes().isAcceptGiftcard(),
                                             jsonInput.getExtensionAttributes().getGiftcardCurrency(),

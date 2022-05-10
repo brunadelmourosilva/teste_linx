@@ -13,7 +13,7 @@
 
 ---
 
-## Como executar a aplicação?
+## Como executar a aplicação
 
 * 1 - É necessário obter o Maven em sua máquina para realizar o build do projeto
 * 2 - Em seguida, descompacte o projeto para o local desejado em sua máquina

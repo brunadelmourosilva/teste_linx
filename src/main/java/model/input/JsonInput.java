@@ -1,21 +1,18 @@
 package model.input;
 
-//https://gist.github.com/guilhermefainer/40876d3c4149640b4ce8d20bcb14f6c7
-
-//https://gist.github.com/guilhermefainer/5e63d22573a85a24f14f8f8cb969138e
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonInput {
 
-    private String id; //fulfillmentId
+    private String id;
     private String orderId;
     private String channelId;
     private String clientId;
     private String status;
     private ExtensionAttributesInput extensionAttributes;
-    private String createdAt; //não copiar o campo - colocar output => Instant.now().toString()
+    private String createdAt;
     private String processedAt;
     private List<ItemsInput> items = new ArrayList<>();
 
