@@ -2,10 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.input.ItemsInput;
 import model.input.JsonInput;
-import model.output.ExtensionAttributesOutput;
-import model.output.ItemsOutput;
-import model.output.JsonOutput;
-import model.output.RefundOutput;
+import model.output.*;
 
 import java.io.*;
 import java.time.Instant;
@@ -27,7 +24,6 @@ public class Application {
             jsonString.append(x);
         });
 
-
         //transforma a String para a classe JsonInput
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonInput jsonInput = gson.fromJson(jsonString.toString(), JsonInput.class);
@@ -37,8 +33,6 @@ public class Application {
 
         //retorno dos dados para o usuário
         System.out.println(gson.toJson(jsonOutput));
-
-        System.out.println("-------------------------------------");
     }
 
     public static List<String> inputJsonAndConvertToList() throws IOException {
@@ -94,12 +88,17 @@ public class Application {
         return jsonOutput;
     }
 
+    //TESTAR
     public static JsonOutput transferItems(JsonInput jsonInput, JsonOutput jsonOutput){
-        for (ItemsInput item : jsonInput.getItems())
+        for (ItemsInput item : jsonInput.getItems()) {
             jsonOutput.getItems().add(new ItemsOutput(item.getSku(), item.getQuantity()));
-
+        }
         return jsonOutput;
     }
+
+    //lista de itens
+            //cada item tem 3 sku's
+                    //cada sku tem 2 atributos
 
     public static JsonOutput transferRefund(JsonInput jsonInput, JsonOutput jsonOutput){
         Double freightRefund = 0.0,
